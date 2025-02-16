@@ -65,7 +65,50 @@
 
   <script>
     "use strict";
-    // Код писать здесь
+    
+    const nameInput = document.querySelector('.add-form-name');
+    const commentInput = document.querySelector('.add-form-text');
+    const addButton = document.querySelector('.add-form-button');
+    const commentsList = document.querySelector('.comments');
+
+    addButton.addEventListener('click', () => {
+        const name = nameInput.value.trim();
+        const comment = commentInput.value.trim();
+
+        if (!name || !comment) {
+            alert('Пожалуйста, введите ваше имя и комментарий.');
+            return;
+        }
+
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const time = `${hours}:${minutes}`;
+
+        const newComment = `
+            <li class="comment">
+                <div class="comment-header">
+                    <div>${name}</div>
+                    <div>${time}</div>
+                </div>
+                <div class="comment-body">
+                    <div class="comment-text">${comment}</div>
+                </div>
+                <div class="comment-footer">
+                    <div class="likes">
+                        <span class="likes-counter">0</span>
+                        <button class="like-button"></button>
+                    </div>
+                </div>
+            </li>
+        `;
+
+        commentsList.innerHTML += newComment;
+
+        nameInput.value = '';
+        commentInput.value = '';
+    });
+
     console.log("It works!");
   </script>
 </html>
