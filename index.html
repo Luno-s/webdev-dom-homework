@@ -65,7 +65,7 @@
 
   <script>
     "use strict";
-    
+
     const nameInput = document.querySelector('.add-form-name');
     const commentInput = document.querySelector('.add-form-text');
     const addButton = document.querySelector('.add-form-button');
@@ -93,7 +93,7 @@
       comments.forEach((comment, index) => {
         const likeClass = comment.liked ? 'like-button -active-like' : 'like-button';
         const newComment = `
-          <li class="comment">
+          <li class="comment" data-index="${index}">
             <div class="comment-header">
               <div>${comment.name}</div>
               <div>${comment.date}</div>
@@ -113,6 +113,10 @@
       });
     }
 
+    function updateCommentInput(comment) {
+    commentInput.value = `> ${comment.name}: "${comment.text}"\n Ответ: `;
+    }
+
     commentsList.addEventListener('click', (event) => {
       if (event.target.classList.contains('like-button')) {
         const index = event.target.getAttribute('data-index');
@@ -120,15 +124,21 @@
         comments[index].likes += comments[index].liked ? 1 : -1;
         renderComments();
       }
+      else if (event.target.closest('.comment')) {
+        const commentElement = event.target.closest('.comment');
+        const index = parseInt(commentElement.getAttribute('data-index'), 10);
+        const comment = comments[index];
+        updateCommentInput(comment);;
+      }
     });
 
     addButton.addEventListener('click', () => {
-      const name = nameInput.value.trim();
-      const comment = commentInput.value.trim();
+      const name = sanitizeInput(nameInput.value.trim());
+      const comment = sanitizeInput(commentInput.value.trim());
 
       if (!name || !comment) {
-          alert('Пожалуйста, введите ваше имя и комментарий.');
-          return;
+        alert('Пожалуйста, введите ваше имя и комментарий.');
+        return;
       }
 
       const now = new Date();
@@ -147,10 +157,22 @@
         liked: false
       });
 
+      updateCommentInput({
+        name: name,
+        text: comment
+      });
+
       nameInput.value = '';
       commentInput.value = '';
       renderComments();
     });
+
+    function sanitizeInput(input) {
+      return input
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+    }
 
     document.addEventListener('DOMContentLoaded', renderComments);
 
