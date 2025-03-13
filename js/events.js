@@ -1,4 +1,4 @@
-import { comments } from '../comments.js'
+import { comments } from './comments.js'
 import { renderComments } from './render.js'
 import { sanitizeInput, updateCommentInput } from './input.js'
 

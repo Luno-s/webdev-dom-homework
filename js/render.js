@@ -1,4 +1,4 @@
-import { comments } from '../comments.js'
+import { comments } from './comments.js'
 
 export function renderComments(commentsList) {
     commentsList.innerHTML = ''
