@@ -9,8 +9,8 @@ export function renderComments(commentsList) {
         const newComment = `
         <li class="comment" data-index="${index}">
             <div class="comment-header">
-                <div>${comment.name}</div>
-                <div>${comment.date}</div>
+                <div>${comment.author.name}</div>
+                <div>${new Date(comment.date).toLocaleString('ru-RU')}</div>
             </div>
             <div class="comment-body">
                 <div class="comment-text">${comment.text}</div>
