@@ -1,6 +1,7 @@
 import { comments } from './comments.js'
 import { renderComments } from './render.js'
 import { sanitizeInput, updateCommentInput } from './input.js'
+import { addComments, fetchComments } from './api.js'
 
 export function addEventListeners(
     commentsList,
@@ -33,27 +34,15 @@ export function addEventListeners(
             alert('Пожалуйста, введите ваше имя и комментарий.')
             return
         }
-
-        const now = new Date()
-        const day = String(now.getDate()).padStart(2, '0')
-        const month = String(now.getMonth() + 1).padStart(2, '0')
-        const year = String(now.getFullYear()).slice(2)
-        const hours = String(now.getHours()).padStart(2, '0')
-        const minutes = String(now.getMinutes()).padStart(2, '0')
-        const formattedDate = `${day}.${month}.${year} ${hours}:${minutes}`
-
-        comments.push({
-            name: name,
-            date: formattedDate,
-            text: comment,
-            likes: 0,
-            liked: false,
-        })
-
-        updateCommentInput({ name: name, text: comment }, commentInput)
-
-        nameInput.value = ''
-        commentInput.value = ''
-        renderComments(commentsList)
+        addComments(name, comment)
+            .then(() => {
+                updateCommentInput({ name: name, text: comment }, commentInput)
+                nameInput.value = ''
+                commentInput.value = ''
+                return fetchComments()
+            })
+            .then(() => {
+                renderComments(commentsList)
+            })
     })
 }
