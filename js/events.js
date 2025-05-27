@@ -34,6 +34,10 @@ export function addEventListeners(
             alert('Пожалуйста, введите ваше имя и комментарий.')
             return
         }
+
+        addButton.disabled = true
+        addButton.textContent = 'Загрузка комментария...'
+
         addComments(name, comment)
             .then(() => {
                 updateCommentInput({ name: name, text: comment }, commentInput)
@@ -43,6 +47,10 @@ export function addEventListeners(
             })
             .then(() => {
                 renderComments(commentsList)
+            })
+            .then(() => {
+                addButton.disabled = false
+                addButton.textContent = 'Написать'
             })
     })
 }

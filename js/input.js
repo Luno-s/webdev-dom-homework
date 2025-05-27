@@ -6,5 +6,13 @@ export function sanitizeInput(input) {
 }
 
 export function updateCommentInput(comment, commentInput) {
-    commentInput.value = `> ${comment.name}: "${comment.text}"\n Ответ: `
+    commentInput.value = `> ${comment.name}: «${comment.text}»\n Ответ: `
+}
+
+export function delay(interval = 300) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve()
+        }, interval)
+    })
 }

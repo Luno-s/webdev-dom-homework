@@ -1,7 +1,7 @@
 import { updateComments } from './comments.js'
 
 export function fetchComments() {
-    return fetch('https://wedev-api.sky.pro/api/v1/polina-lunos/comments')
+    return fetch('https://wedev-api.sky.pro/api/v1/lina-lunos/comments')
         .then((response) => {
             return response.json()
         })
@@ -11,7 +11,7 @@ export function fetchComments() {
 }
 
 export function addComments(name, text) {
-    return fetch('https://wedev-api.sky.pro/api/v1/polina-lunos/comments', {
+    return fetch('https://wedev-api.sky.pro/api/v1/lina-lunos/comments', {
         method: 'POST',
         body: JSON.stringify({ name: name, text: text }),
     }).then((response) => {

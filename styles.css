@@ -135,3 +135,66 @@ body {
   .add-form-button:hover {
     opacity: 0.9;
   }
+
+  .loading {
+    margin-bottom: 20px;
+    font-size: 32px;
+  }
+
+
+  .preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #202020;
+    z-index: 1001;
+  }
+
+  .preloader__text {
+    font-family: Helvetica;
+    background: linear-gradient(90deg, #bcec30, #ffffff, #7334ea, #bcec30);
+    background-size: 200% auto;
+    font-size: 32px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textflow 5s linear infinite;
+  }
+  
+  @keyframes textflow {
+    from {background-position: 0% center}         
+    to {background-position: 200% center}
+  }
+
+  .loaded_hiding .preloader {
+    transition: 0.3s opacity;
+    opacity: 0;
+  }
+  
+  .loaded .preloader {
+    display: none;
+  }
+
+  @keyframes rotating {
+    from {
+       transform: rotate(0deg);
+    }
+    25% {
+       transform: rotate(30deg);
+    }
+    75% {
+       transform: rotate(-30deg);
+    }
+    to {
+       transform: rotate(0deg);
+    }
+ }
+ 
+ .loading-like {
+    animation: rotating 2s linear infinite;
+ }
