@@ -48,7 +48,10 @@ export function addEventListeners(
             .then(() => {
                 renderComments(commentsList)
             })
-            .then(() => {
+            .catch((error) => {
+                alert(error.message)
+            })
+            .finally(() => {
                 addButton.disabled = false
                 addButton.textContent = 'Написать'
             })
